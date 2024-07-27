@@ -8,19 +8,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 3,
-    maxlength: 50,
+    maxlength: 128,
   },
   email: {
     type: String,
     required: true,
-    minlength: 5,
-    maxlength: 255,
+    minlength: 3,
+    maxlength: 128,
     unique: true,
   },
   password: {
     type: String,
     required: true,
-    minlength: 8,
+    minlength: 4,
     maxlength: 1024,
   },
   phoneNo: {
@@ -28,20 +28,6 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 3,
     maxlength: 20,
-  },
-  experience: {
-    type: Number,
-    min: 1,
-    max: 30,
-  },
-  userType: {
-    type: String,
-    enum: ["buyer", "seller"],
-    required: true,
-  },
-  profilePicture: {
-    type: String,
-    required: true,
   },
   aboutMe: {
     type: String,
@@ -67,23 +53,20 @@ userSchema.methods.generateAuthToken = function () {
 const User = mongoose.model("User", userSchema);
 
 function validateUser(user) {
-  const schema = {
-    name: Joi.string().min(3).max(50).required(),
-    email: Joi.string().min(5).max(255).required().email(),
-    password: Joi.string().min(8).max(1024).required(),
-    // password: Joi.string()
+  const schema = Joi.object({
+    name: Joi.string().min(3).max(128).required(),
+    email: Joi.string().min(3).max(128).required().email(),
+    password: Joi.string().min(4).max(1024).required(),
+    password: Joi.string(),
     //   .regex(/^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8}$/)
     //   .required()
     //   .messages({
     //     "string.pattern.base": "Password must be atleast 8 characters long and alphanumeic",
     //   }),
     phoneNo: Joi.string().min(3).max(20).required(),
-    experience: Joi.number().integer().min(1).max(30),
-    userType: Joi.string().valid("buyer", "seller").required(),
-    profilePicture: Joi.string().required(),
-  };
+  })
 
-  return Joi.validate(user, schema);
+  return schema.validate(user);
 }
 
 exports.User = User;
