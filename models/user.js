@@ -42,7 +42,6 @@ userSchema.methods.generateAuthToken = function () {
       _id: this._id,
       name: this.name,
       email: this.email,
-      userType: this.userType,
     },
     config.get("jwtPrivateKey")
   );
@@ -57,12 +56,6 @@ function validateUser(user) {
     name: Joi.string().min(3).max(128).required(),
     email: Joi.string().min(3).max(128).required().email(),
     password: Joi.string().min(4).max(1024).required(),
-    password: Joi.string(),
-    //   .regex(/^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8}$/)
-    //   .required()
-    //   .messages({
-    //     "string.pattern.base": "Password must be atleast 8 characters long and alphanumeic",
-    //   }),
     phoneNo: Joi.string().min(3).max(20).required(),
   })
 
