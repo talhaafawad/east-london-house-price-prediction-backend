@@ -57,7 +57,7 @@ function validateUser(user) {
     email: Joi.string().min(3).max(128).required().email(),
     password: Joi.string().min(4).max(1024).required(),
     phoneNo: Joi.string().min(3).max(20).required(),
-  })
+  });
 
   return schema.validate(user);
 }

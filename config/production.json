@@ -1,6 +1,7 @@
 {
   "jwtPrivateKey": "secureKey",
-  "db": "mongodb+srv://shophub-render:shophub-render@cluster0.xh0ostj.mongodb.net/house-price-predictor?retryWrites=true&w=majority&appName=Cluster0",
+  "db": "mongodb://localhost:27017",
   "port": "3006",
-  "requiresAuth": true
+  "requiresAuth": false
 }
+//"db": "mongodb+srv://shophub-render:shophub-render@cluster0.xh0ostj.mongodb.net/house-price-predictor?retryWrites=true&w=majority&appName=Cluster0",
